@@ -1,0 +1,27 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3 center-text">
+      <h2>
+        Angular Custom Form Element
+      </h2>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="col-xs-12 center-text" style="margin: 20px 0"></div>
+  <div class="row">
+    <form #storeForm="ngForm" (ngSubmit)="submitStoreForm()">
+      <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+        <app-lookup name="stores" [formConfig]="storeFormConfig" [lookupConfig]="storeLookupConfig" ngModel></app-lookup>
+      </div>
+      <div class="col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+        <app-lookup name="items" [formConfig]="itemFormConfig" [lookupConfig]="itemLookupConfig" ngModel></app-lookup>
+      </div>
+      <div class="col-xs-12 center-text" style="margin: 20px 0">
+        <button mat-raised-button type="submit" color="primary" [disabled]="storeForm.invalid"
+          style="margin: 0 5px">Submit</button>
+        <button mat-raised-button type="reset" color="warn" (click)="storeForm.reset()"
+          style="margin: 0 5px">Reset</button>
+      </div>
+    </form>
+  </div>
+</div>

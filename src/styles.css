@@ -1,0 +1,34 @@
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+body, .mat-form-field, .mat-form-field-label, .mat-dialog-title, .mat-raised-button, .mat-fab, 
+.mat-mini-fab, .mat-button, .mat-dialog-content, .table, .mat-table, .mat-list,
+.mat-list-item, .mat-line, .mat-flat-button, .mat-stroked-button,
+.mat-cell, .mat-row, .mat-paginator, .mat-header-row, .mat-header-cell, .mat-input-element {
+    font-family: 'Lato', Helvetica, 'Trebuchet MS', Arial, sans-serif !important;
+    text-rendering: optimizeLegibility;
+}
+
+.mat-form-field {
+    display: block !important;
+}
+
+.mat-input-element:disabled {
+    color: rgba(0, 0, 0, 0.6);
+}
+
+.mat-input-placeholder {
+    color: #6e6e6e;
+}
+
+.center-text {
+    text-align: center;
+}
+
+.row-selected {
+    background-color: #D5D5D5 !important;
+    color: #fff !important;
+}
+
+.table-header-item {
+    font-size: 15px;
+}
