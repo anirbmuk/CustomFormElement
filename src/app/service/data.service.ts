@@ -1,6 +1,9 @@
+import { Injectable } from '@angular/core';
+
 import { ItemModel } from '../model/item.model';
 import { StoreModel } from '../model/store.model';
 
+@Injectable()
 export class DataService {
 
     public getData(): any {
