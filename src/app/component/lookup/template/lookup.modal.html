@@ -30,14 +30,10 @@
     <table [dataSource]="matTableDataSource" class="table mat-elevation-z2" mat-table>
         <ng-container *ngFor="let column of displayFields; let currentIndex = index" [matColumnDef]="column">
             <th mat-header-cell *matHeaderCellDef>
-                <span class="table-header-item">{{ fieldConfig[column].header }}</span>
+              <span class="table-header-item">{{ fieldConfig[column].header }}</span>
             </th>
             <td mat-cell *matCellDef="let element">
-                {{ (fieldConfig[column].component === 'select' || fieldConfig[column].component === 'multiselect')
-                    ? ((element[column] && !isArray(element[column])) ? element[column].split(':')[0]
-                    : (isArray(element[column]) ? element[column].join(', ') : element[column]) )
-                    : ((fieldConfig[column].component === 'check' || fieldConfig[column].component === 'slide')
-                    ? (element[column] ? 'Yes' : 'No') : element[column]) }}
+              {{ element[column] }}
             </td>
         </ng-container>
         <tr mat-header-row *matHeaderRowDef="displayFields"></tr>

@@ -1,8 +1,10 @@
 <mat-form-field>
-    <mat-label>{{ formConfig.label }}</mat-label>
-    <input matInput [(ngModel)]="formValue" (change)="onValueChange($event.target.value)" />
+  <mat-label>{{ formConfig.label }}</mat-label>
+  <input matInput [ngModel]="formValue" [errorStateMatcher]="fieldErrorStateMatcher" #formInput/>
+  <mat-error>This is not a valid value</mat-error>
+  <mat-hint>{{ 'Allow unlisted values? ' + (lookupConfig.allowUnlistedValue ? 'Yes' : 'No') }}</mat-hint>
 </mat-form-field>
 <button mat-icon-button type="button" class="pull-right" style="margin-top: -58px;" [color]="formConfig.color"
-    [matTooltip]="formConfig.placeholder" (click)="launchPopup()">
-    <mat-icon matSuffix>search</mat-icon>
+  [matTooltip]="formConfig.placeholder" (click)="launchPopup()">
+  <mat-icon matSuffix>search</mat-icon>
 </button>
