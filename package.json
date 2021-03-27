@@ -4,14 +4,29 @@
     "name": "anirbmuk",
     "email": "anirbmuk@live.in"
   },
-  "version": "0.0.0",
+  "version": "2.0.0",
+  "description": "Angular 10 application for custom form element",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/anirbmuk/CustomFormElement.git"
+  },
+  "bugs": {
+    "url": "https://github.com/anirbmuk/CustomFormElement/issues"
+  },
+  "homepage": "https://theangularpath.anirbanblogs.com/2019/09/angular-custom-lookup-form-component.html",
+  "keywords": [
+    "angular",
+    "rxjs",
+    "reactive-form"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "build-prod": "ng build --aot --prod"
   },
   "private": true,
   "dependencies": {
@@ -51,6 +66,7 @@
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
+    "tslint-etc": "^1.13.9",
     "typescript": "~4.0.5"
   }
 }

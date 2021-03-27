@@ -32,6 +32,8 @@ class FormStateMatcher implements ErrorStateMatcher {
 export class LookupModalComponent implements OnInit, OnDestroy {
 
   private destroy$: Subject<void> = new Subject<void>();
+  private dialogData: { action: string, context: any };
+  private dataSource: any;
   private lookupConfig: LookupConfig;
   public searchFields: LookupConfig['searchFields'];
   public displayFields: LookupConfig['displayFields'];
@@ -43,11 +45,7 @@ export class LookupModalComponent implements OnInit, OnDestroy {
   selectedRow: any;
 
   lookupData$: Observable<IGeneric[]>;
-
-  private dataSource: any;
   public matTableDataSource: MatTableDataSource<any>;
-
-  private dialogData: { action: string, context: any };
 
   constructor(public dialogRef: MatDialogRef<LookupModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
               private fetch: FetchService) { }
@@ -138,7 +136,7 @@ export class LookupModalComponent implements OnInit, OnDestroy {
   private buildData() {
     this.lookupData$.subscribe((data: IGeneric[]) => {
       this.dataSource = data;
-      this.matTableDataSource = new MatTableDataSource<any>(data)
+      this.matTableDataSource = new MatTableDataSource<any>(data);
     });
   }
 
@@ -164,6 +162,8 @@ export class LookupModalComponent implements OnInit, OnDestroy {
 })
 export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
 
+  private destroy$: Subject<void> = new Subject<void>();
+
   @Input() formConfig: FormConfig;
   @Input() lookupConfig: LookupConfig;
   @Input() _formValue: any;
@@ -172,9 +172,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
   fieldErrorStateMatcher = new FormStateMatcher();
 
   public formValue: any;
-  private destroy$: Subject<void> = new Subject<void>();
   public action$: Observable<string>;
-  private callback = (data: any) => { };
 
   constructor(private dialog: MatDialog, private fetch: FetchService) { }
 
@@ -208,7 +206,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
                 this.fieldErrorStateMatcher = new FormStateMatcher('error');
               }
             })
-          )
+          );
         })
       ).subscribe();
     }
@@ -247,5 +245,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
       }
     });
   }
+
+  private callback = (data: any) => { };
 
 }

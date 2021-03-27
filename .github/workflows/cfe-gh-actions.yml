@@ -1,0 +1,64 @@
+name: CustomFormElement GitHub Actions
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on both push and pull request events but only for the master branch
+  push:
+  pull_request:
+    branches: [ master ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  install:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Cache node_modules
+        id: cache-node-modules-pre
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-cfe-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install node_modules
+        if: steps.cache-node-modules-pre.outputs.cache-hit != 'true'
+        run: npm i
+
+  check:
+    needs: [install]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-cfe-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install node_modules
+        run: npm i
+
+      - name: Check linting
+        run: npm run lint
+
+  build:
+    needs: [check]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-build-cfe-node-modules-${{ hashFiles('package-lock.json') }}
+
+      - name: Install node_modules
+        run: npm i
+
+      - name: Build cfe project
+        run: npm run build-prod
