@@ -242,6 +242,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
           this.formValue = '';
         }
         this.callback(this.formValue);
+        this.fieldErrorStateMatcher = new FormStateMatcher();
       }
     });
   }
