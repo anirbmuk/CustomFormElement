@@ -20,6 +20,7 @@ class FormStateMatcher implements ErrorStateMatcher {
   }
 
   isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+    console.log(control, this.errorCode);
     return !!this.errorCode;
   }
 }
@@ -197,7 +198,12 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
           .pipe(
             take(1),
             map((data: IGeneric[]) => {
-              const valid = data.some(each => each[postback] === value);
+              let valid = false;
+              if (!value) {
+                valid = true;
+              } else {
+                valid = data.some(each => each[postback] === value);
+              }
               if (valid) {
                 this.callback(value);
                 this.fieldErrorStateMatcher = new FormStateMatcher();

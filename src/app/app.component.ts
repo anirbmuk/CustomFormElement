@@ -1,14 +1,17 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 import { FormConfig, LookupConfig } from './model/config.model';
+
+import { DataService } from './service/data.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
 
   @ViewChild('storeForm') storeForm: NgForm;
 
@@ -16,6 +19,10 @@ export class AppComponent implements OnInit {
   public itemLookupConfig: LookupConfig;
   public storeFormConfig: FormConfig;
   public storeLookupConfig: LookupConfig;
+
+  readonly value$: Observable<any> = this.data.value$;
+
+  constructor(private data: DataService) {}
 
   ngOnInit(): void {
 
@@ -56,9 +63,13 @@ export class AppComponent implements OnInit {
     };
   }
 
+  ngAfterViewInit(): void {
+    this.data.print(this.storeForm.value);
+  }
+
   public submitStoreForm(): void {
     if (this.storeForm) {
-      console.log(JSON.stringify(this.storeForm.value, undefined, 2));
+      this.data.print(this.storeForm.value);
     }
   }
 
