@@ -9,7 +9,6 @@ import { StoreData } from './store.service';
   providedIn: 'root'
 })
 export class DataService implements InMemoryDbService {
-
   private value: BehaviorSubject<any> = new BehaviorSubject<any>({});
   readonly value$: Observable<any> = this.value.asObservable();
 

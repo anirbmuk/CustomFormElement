@@ -36,4 +36,4 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatDividerModule
   ]
 })
-export class MaterialModule { }
+export class MaterialModule {}

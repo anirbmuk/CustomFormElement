@@ -4,7 +4,7 @@
     "name": "anirbmuk",
     "email": "anirbmuk@live.in"
   },
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "Angular 12 application for custom form element",
   "repository": {
     "type": "git",
@@ -26,7 +26,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "build-prod": "ng build --aot --prod"
+    "build-prod": "ng build --configuration production",
+    "format": "prettier --config ./.prettierrc --write \"src/app/**/*{.ts,.js,.json,.css,.scss,.html}\""
   },
   "private": true,
   "dependencies": {
@@ -62,6 +63,7 @@
     "karma-coverage-istanbul-reporter": "~3.0.2",
     "karma-jasmine": "~4.0.0",
     "karma-jasmine-html-reporter": "^1.5.0",
+    "prettier": "^2.3.0",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",

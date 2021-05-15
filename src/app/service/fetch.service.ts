@@ -5,7 +5,6 @@ import { takeUntil, shareReplay } from 'rxjs/operators';
 
 @Injectable()
 export class FetchService implements OnDestroy {
-
   private destroy$: Subject<void> = new Subject<void>();
 
   constructor(private http: HttpClient) {}
@@ -17,9 +16,8 @@ export class FetchService implements OnDestroy {
 
   getLookupData<T>(path: string): Observable<T[]> {
     const api = `api/${path}`;
-    return this.http.get<T[]>(api).pipe(
-      takeUntil(this.destroy$),
-      shareReplay(1)
-    );
+    return this.http
+      .get<T[]>(api)
+      .pipe(takeUntil(this.destroy$), shareReplay(1));
   }
 }

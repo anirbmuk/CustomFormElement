@@ -12,7 +12,6 @@ import { DataService } from './service/data.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-
   @ViewChild('storeForm') storeForm: NgForm;
 
   public itemFormConfig: FormConfig;
@@ -25,7 +24,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   constructor(private data: DataService) {}
 
   ngOnInit(): void {
-
     this.itemFormConfig = {
       placeholder: 'Select Item',
       label: 'Item',
@@ -38,8 +36,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       searchFields: ['name'], // modal search fields
       displayFields: ['name', 'brand'], // modal data table display fields
       fieldConfig: {
-        name: { controlname: 'name', type: 'input', label: 'Item', header: 'Item' },
-        brand: { controlname: 'brand', type: 'input', label: 'Brand', header: 'Brand' }
+        name: {
+          controlname: 'name',
+          type: 'input',
+          label: 'Item',
+          header: 'Item'
+        },
+        brand: {
+          controlname: 'brand',
+          type: 'input',
+          label: 'Brand',
+          header: 'Brand'
+        }
       },
       postback: 'name' // data model attribute which would populate the form
     };
@@ -56,8 +64,18 @@ export class AppComponent implements OnInit, AfterViewInit {
       searchFields: ['name', 'location'],
       displayFields: ['name', 'location'],
       fieldConfig: {
-        name: { controlname: 'name', type: 'input', label: 'Store', header: 'Store' },
-        location: { controlname: 'location', type: 'input', label: 'Location', header: 'Location' }
+        name: {
+          controlname: 'name',
+          type: 'input',
+          label: 'Store',
+          header: 'Store'
+        },
+        location: {
+          controlname: 'location',
+          type: 'input',
+          label: 'Location',
+          header: 'Location'
+        }
       },
       postback: 'name'
     };
@@ -72,5 +90,4 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.data.print(this.storeForm.value);
     }
   }
-
 }

@@ -17,6 +17,6 @@ export interface LookupConfig {
       type: string;
       label: string;
       header: string;
-    }
+    };
   };
 }

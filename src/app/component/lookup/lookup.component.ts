@@ -1,10 +1,38 @@
-import { Component, OnInit, Input, Inject, forwardRef, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
-import { FormControl, FormGroup, ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroupDirective, NgForm } from '@angular/forms';
-import { MatDialogRef, MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import {
+  Component,
+  OnInit,
+  Input,
+  Inject,
+  forwardRef,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit
+} from '@angular/core';
+import {
+  FormControl,
+  FormGroup,
+  ControlValueAccessor,
+  NG_VALUE_ACCESSOR,
+  FormGroupDirective,
+  NgForm
+} from '@angular/forms';
+import {
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+  MatDialog
+} from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { fromEvent, Observable, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map, switchMap, take, takeUntil } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  map,
+  switchMap,
+  take,
+  takeUntil
+} from 'rxjs/operators';
 
 import { FormConfig, LookupConfig } from './../../model/config.model';
 
@@ -13,14 +41,15 @@ import { IGeneric } from './../../model/generic.model';
 import { FetchService } from './../../service/fetch.service';
 
 class FormStateMatcher implements ErrorStateMatcher {
-
   private errorCode: string;
   constructor(errorCode?: string) {
     this.errorCode = errorCode || '';
   }
 
-  isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-    console.log(control, this.errorCode);
+  isErrorState(
+    control: FormControl | null,
+    form: FormGroupDirective | NgForm | null
+  ): boolean {
     return !!this.errorCode;
   }
 }
@@ -31,9 +60,8 @@ class FormStateMatcher implements ErrorStateMatcher {
   providers: [FetchService]
 })
 export class LookupModalComponent implements OnInit, OnDestroy {
-
   private destroy$: Subject<void> = new Subject<void>();
-  private dialogData: { action: string, context: any };
+  private dialogData: { action: string; context: any };
   private dataSource: any;
   private lookupConfig: LookupConfig;
   public searchFields: LookupConfig['searchFields'];
@@ -48,8 +76,11 @@ export class LookupModalComponent implements OnInit, OnDestroy {
   lookupData$: Observable<IGeneric[]>;
   public matTableDataSource: MatTableDataSource<any>;
 
-  constructor(public dialogRef: MatDialogRef<LookupModalComponent>, @Inject(MAT_DIALOG_DATA) public data: any,
-              private fetch: FetchService) { }
+  constructor(
+    public dialogRef: MatDialogRef<LookupModalComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,
+    private fetch: FetchService
+  ) {}
 
   ngOnInit(): void {
     this.lookupConfig = this.data;
@@ -59,7 +90,9 @@ export class LookupModalComponent implements OnInit, OnDestroy {
     this.postback = this.lookupConfig.postback;
     this.dialogData = { action: null, context: {} };
     this.buildFormGroup(this.searchFields);
-    this.lookupData$ = this.fetch.getLookupData<IGeneric>(this.lookupConfig.lookup);
+    this.lookupData$ = this.fetch.getLookupData<IGeneric>(
+      this.lookupConfig.lookup
+    );
 
     if (this.lookupConfig.fetchOnLoad) {
       this.buildData();
@@ -79,31 +112,39 @@ export class LookupModalComponent implements OnInit, OnDestroy {
   }
 
   public onLookupFilter(): void {
-    this.lookupData$.pipe(
-      map((data: unknown[]) => {
-        const filteredData = data.filter((each: IGeneric) => {
-          let condition = true;
-          this.searchFields.forEach(field => {
-            if (this.lookupSearchForm.value[field]) {
-              condition = condition && (each[field]
-                ? (each[field].toLowerCase().indexOf(this.lookupSearchForm.value[field].toLowerCase()) > -1)
-                : true);
-            } else {
-              condition = condition && true;
-            }
+    this.lookupData$
+      .pipe(
+        map((data: unknown[]) => {
+          const filteredData = data.filter((each: IGeneric) => {
+            let condition = true;
+            this.searchFields.forEach(field => {
+              if (this.lookupSearchForm.value[field]) {
+                condition =
+                  condition &&
+                  (each[field]
+                    ? each[field]
+                        .toLowerCase()
+                        .indexOf(
+                          this.lookupSearchForm.value[field].toLowerCase()
+                        ) > -1
+                    : true);
+              } else {
+                condition = condition && true;
+              }
+            });
+            return condition;
           });
-          return condition;
-        });
-        return filteredData;
-      })
-    ).subscribe((filteredData: IGeneric[]) => {
-      if (filteredData) {
-        this.dataSource = filteredData;
-      } else {
-        this.dataSource = [];
-      }
-      this.matTableDataSource = new MatTableDataSource<any>(this.dataSource);
-    });
+          return filteredData;
+        })
+      )
+      .subscribe((filteredData: IGeneric[]) => {
+        if (filteredData) {
+          this.dataSource = filteredData;
+        } else {
+          this.dataSource = [];
+        }
+        this.matTableDataSource = new MatTableDataSource<any>(this.dataSource);
+      });
   }
 
   public resetForm(): void {
@@ -118,7 +159,9 @@ export class LookupModalComponent implements OnInit, OnDestroy {
       this.selectedKey = null;
     } else {
       this.selectedKey = currentKey;
-      this.selectedRow = this.dataSource.find((data: any) => data[this.postback] === currentKey);
+      this.selectedRow = this.dataSource.find(
+        (data: any) => data[this.postback] === currentKey
+      );
     }
   }
 
@@ -148,21 +191,24 @@ export class LookupModalComponent implements OnInit, OnDestroy {
     });
     this.lookupSearchForm = new FormGroup(formGroup);
   }
-
 }
 
 @Component({
   selector: 'app-lookup',
   templateUrl: './lookup.component.html',
   styleUrls: ['./lookup.component.css'],
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => LookupComponent),
-    multi: true
-  }, FetchService]
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => LookupComponent),
+      multi: true
+    },
+    FetchService
+  ]
 })
-export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy {
-
+export class LookupComponent
+  implements OnInit, ControlValueAccessor, AfterViewInit, OnDestroy
+{
   private destroy$: Subject<void> = new Subject<void>();
 
   @Input() formConfig: FormConfig;
@@ -175,46 +221,50 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
   public formValue: any;
   public action$: Observable<string>;
 
-  constructor(private dialog: MatDialog, private fetch: FetchService) { }
+  constructor(private dialog: MatDialog, private fetch: FetchService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     const postback = this.lookupConfig.postback;
-    this.action$ = fromEvent(this.formInput.nativeElement, 'input')
-    .pipe(
+    this.action$ = fromEvent(this.formInput.nativeElement, 'input').pipe(
       takeUntil(this.destroy$),
       debounceTime(250),
       distinctUntilChanged(),
-      map((event: KeyboardEvent) => ((event.target as HTMLInputElement).value as string))
+      map(
+        (event: KeyboardEvent) =>
+          (event.target as HTMLInputElement).value as string
+      )
     );
     if (this.lookupConfig.allowUnlistedValue) {
       this.action$.subscribe((value: string) => this.callback(value));
     } else {
-      this.action$.pipe(
-        switchMap((value: string) => {
-          return this.fetch.getLookupData<IGeneric>(this.lookupConfig.lookup)
-          .pipe(
-            take(1),
-            map((data: IGeneric[]) => {
-              let valid = false;
-              if (!value) {
-                valid = true;
-              } else {
-                valid = data.some(each => each[postback] === value);
-              }
-              if (valid) {
-                this.callback(value);
-                this.fieldErrorStateMatcher = new FormStateMatcher();
-              } else {
-                this.callback(null);
-                this.fieldErrorStateMatcher = new FormStateMatcher('error');
-              }
-            })
-          );
-        })
-      ).subscribe();
+      this.action$
+        .pipe(
+          switchMap((value: string) => {
+            return this.fetch
+              .getLookupData<IGeneric>(this.lookupConfig.lookup)
+              .pipe(
+                take(1),
+                map((data: IGeneric[]) => {
+                  let valid = false;
+                  if (!value) {
+                    valid = true;
+                  } else {
+                    valid = data.some(each => each[postback] === value);
+                  }
+                  if (valid) {
+                    this.callback(value);
+                    this.fieldErrorStateMatcher = new FormStateMatcher();
+                  } else {
+                    this.callback(null);
+                    this.fieldErrorStateMatcher = new FormStateMatcher('error');
+                  }
+                })
+              );
+          })
+        )
+        .subscribe();
     }
   }
 
@@ -231,7 +281,7 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
     this.callback = callback;
   }
 
-  registerOnTouched() { }
+  registerOnTouched() {}
 
   public launchPopup(): void {
     const dialogRef = this.dialog.open(LookupModalComponent, {
@@ -240,19 +290,20 @@ export class LookupComponent implements OnInit, ControlValueAccessor, AfterViewI
       disableClose: true,
       data: this.lookupConfig
     });
-    dialogRef.afterClosed().subscribe((result: { action: string, context: any }) => {
-      if (result.action === 'select') {
-        if (result && result.context) {
-          this.formValue = result.context.postback;
-        } else {
-          this.formValue = '';
+    dialogRef
+      .afterClosed()
+      .subscribe((result: { action: string; context: any }) => {
+        if (result.action === 'select') {
+          if (result && result.context) {
+            this.formValue = result.context.postback;
+          } else {
+            this.formValue = '';
+          }
+          this.callback(this.formValue);
+          this.fieldErrorStateMatcher = new FormStateMatcher();
         }
-        this.callback(this.formValue);
-        this.fieldErrorStateMatcher = new FormStateMatcher();
-      }
-    });
+      });
   }
 
-  private callback = (data: any) => { };
-
+  private callback = (data: any) => {};
 }

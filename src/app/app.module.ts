@@ -8,15 +8,14 @@ import { InMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { MaterialModule } from './material.module';
 
 import { AppComponent } from './app.component';
-import { LookupComponent, LookupModalComponent } from './component/lookup/lookup.component';
+import {
+  LookupComponent,
+  LookupModalComponent
+} from './component/lookup/lookup.component';
 import { DataService } from './service/data.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LookupComponent,
-    LookupModalComponent
-  ],
+  declarations: [AppComponent, LookupComponent, LookupModalComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -24,10 +23,10 @@ import { DataService } from './service/data.service';
     ReactiveFormsModule,
     MaterialModule,
     HttpClientModule,
-    InMemoryWebApiModule.forRoot(DataService, { delay: 250 }),
+    InMemoryWebApiModule.forRoot(DataService, { delay: 250 })
   ],
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [LookupModalComponent]
 })
-export class AppModule { }
+export class AppModule {}
