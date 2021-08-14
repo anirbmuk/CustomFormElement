@@ -1,0 +1,31 @@
+.form-container {
+  margin: auto;
+}
+
+@media screen and (max-width: 499px) {
+  .form-container {
+    max-width: 95vw;
+  }
+}
+
+@media screen and (min-width: 500px) and (max-width: 767px) {
+  .form-container {
+    max-width: 70vw;
+  }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1023px) {
+  .form-container {
+    max-width: 40vw;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .form-container {
+    max-width: 30vw;
+  }
+}
+
+.component-margin {
+  margin: 15px 0;
+}

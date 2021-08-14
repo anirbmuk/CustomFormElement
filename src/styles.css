@@ -1,6 +1,6 @@
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
 
-body, .mat-form-field, .mat-form-field-label, .mat-dialog-title, .mat-raised-button, .mat-fab, 
+body, .mat-form-field, .mat-form-field-label, .mat-dialog-title, .mat-raised-button, .mat-fab,
 .mat-mini-fab, .mat-button, .mat-dialog-content, .table, .mat-table, .mat-list,
 .mat-list-item, .mat-line, .mat-flat-button, .mat-stroked-button,
 .mat-cell, .mat-row, .mat-paginator, .mat-header-row, .mat-header-cell, .mat-input-element {
@@ -31,4 +31,12 @@ body, .mat-form-field, .mat-form-field-label, .mat-dialog-title, .mat-raised-but
 
 .table-header-item {
     font-size: 15px;
+}
+
+.mat-hint {
+  font-size: 1.3rem;
+}
+
+.row {
+  padding: 10px 0;
 }

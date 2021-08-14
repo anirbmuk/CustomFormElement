@@ -1,29 +1,13 @@
 <div class="container-fluid">
   <div class="row">
-    <div
-      class="
-        col-xs-12 col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3
-        center-text
-      "
-    >
+    <div class="col-xs-12 center-text">
       <h2>Angular Custom Form Element</h2>
     </div>
   </div>
-  <mat-divider></mat-divider>
-  <div class="col-xs-12 center-text" style="margin: 20px 0"></div>
-  <div class="row">
+  <hr />
+  <div class="form-container">
     <form #storeForm="ngForm" (ngSubmit)="submitStoreForm()">
-      <div
-        class="
-          col-xs-12
-          col-sm-6
-          col-sm-offset-3
-          col-md-6
-          col-md-offset-3
-          col-lg-4
-          col-lg-offset-4
-        "
-      >
+      <div class="component-margin">
         <app-lookup
           name="store"
           [formConfig]="storeFormConfig"
@@ -31,17 +15,7 @@
           ngModel
         ></app-lookup>
       </div>
-      <div
-        class="
-          col-xs-12
-          col-sm-6
-          col-sm-offset-3
-          col-md-6
-          col-md-offset-3
-          col-lg-4
-          col-lg-offset-4
-        "
-      >
+      <div class="component-margin">
         <app-lookup
           name="item"
           [formConfig]="itemFormConfig"
@@ -49,7 +23,7 @@
           ngModel
         ></app-lookup>
       </div>
-      <div class="col-xs-12 center-text" style="margin: 20px 0">
+      <div class="center-text component-margin">
         <button
           mat-raised-button
           type="submit"
@@ -63,7 +37,7 @@
           mat-raised-button
           type="reset"
           color="warn"
-          (click)="storeForm.reset()"
+          (click)="resetStoreForm()"
           style="margin: 0 5px"
         >
           Reset

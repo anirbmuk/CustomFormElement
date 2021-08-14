@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field [appearance]="appearance">
   <mat-label>{{ formConfig.label }}</mat-label>
   <input
     matInput
@@ -15,9 +15,8 @@
   mat-icon-button
   type="button"
   class="pull-right"
-  style="margin-top: -58px"
+  style="margin-top: -67px"
   [color]="formConfig.color"
-  [matTooltip]="formConfig.placeholder"
   (click)="launchPopup()"
 >
   <mat-icon matSuffix>search</mat-icon>

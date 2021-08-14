@@ -19,6 +19,11 @@ export class StoreData {
       id: 3,
       name: 'FabIndia',
       location: 'Chennai'
+    },
+    {
+      id: 4,
+      name: 'Ikea',
+      location: 'Hyderabad'
     }
   ];
 }

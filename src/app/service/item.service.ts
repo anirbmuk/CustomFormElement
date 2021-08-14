@@ -7,7 +7,8 @@ export class ItemData {
   static items: IGeneric[] = [
     {
       id: 1,
-      name: 'Bread'
+      name: 'Bread',
+      brand: 'Brittania'
     },
     {
       id: 2,
@@ -18,6 +19,11 @@ export class ItemData {
       id: 3,
       name: 'Jam',
       brand: 'Kissan'
+    },
+    {
+      id: 4,
+      name: 'Juice',
+      brand: 'Tropicana'
     }
   ];
 }

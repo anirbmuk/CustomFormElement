@@ -1,8 +1,9 @@
-import { Observable } from 'rxjs';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Observable } from 'rxjs';
 
-import { FormConfig, LookupConfig } from './model/config.model';
+import { FormConfig, LookupConfig } from './component';
+import { IGeneric } from './model/generic.model';
 
 import { DataService } from './service/data.service';
 
@@ -14,14 +15,14 @@ import { DataService } from './service/data.service';
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild('storeForm') storeForm: NgForm;
 
-  public itemFormConfig: FormConfig;
-  public itemLookupConfig: LookupConfig;
-  public storeFormConfig: FormConfig;
-  public storeLookupConfig: LookupConfig;
+  itemFormConfig: FormConfig;
+  itemLookupConfig: LookupConfig<IGeneric>;
+  storeFormConfig: FormConfig;
+  storeLookupConfig: LookupConfig<IGeneric>;
 
   readonly value$: Observable<any> = this.data.value$;
 
-  constructor(private data: DataService) {}
+  constructor(private readonly data: DataService) {}
 
   ngOnInit(): void {
     this.itemFormConfig = {
@@ -30,7 +31,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       color: 'primary'
     };
     this.itemLookupConfig = {
-      lookup: 'items', // lookup service, maybe a REST endpoint
+      lookup: 'api/items', // lookup service, maybe a REST endpoint
       fetchOnLoad: true, // fetch data as soon as popup window is launched
       allowUnlistedValue: false, // allow values which are not in list
       searchFields: ['name'], // modal search fields
@@ -58,7 +59,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       color: 'primary'
     };
     this.storeLookupConfig = {
-      lookup: 'stores',
+      lookup: 'api/stores',
       fetchOnLoad: true,
       allowUnlistedValue: true,
       searchFields: ['name', 'location'],
@@ -85,9 +86,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.data.print(this.storeForm.value);
   }
 
-  public submitStoreForm(): void {
-    if (this.storeForm) {
-      this.data.print(this.storeForm.value);
-    }
+  submitStoreForm(): void {
+    this.data.print(this.storeForm?.value);
+  }
+
+  resetStoreForm(): void {
+    this.storeForm?.reset();
+    this.data.print({});
   }
 }
