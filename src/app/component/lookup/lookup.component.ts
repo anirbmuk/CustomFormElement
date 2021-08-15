@@ -154,15 +154,15 @@ export class LookupModalComponent<T> implements OnInit {
     this.lookupSearchForm = new FormGroup(formGroup);
   }
 
-  private filterFn<U>(data: U[]): U[] {
-    const filteredData = data.filter((each: U) => {
+  private filterFn(data: T[]): T[] {
+    const filteredData = data.filter((each: T) => {
       let condition = true;
       this.searchFields.forEach(field => {
         if (this.lookupSearchForm.value[field]) {
           condition =
             condition &&
             (each[field]
-              ? each[field]
+              ? (each[field] as unknown as string)
                   .toLowerCase()
                   .indexOf(this.lookupSearchForm.value[field].toLowerCase()) >
                 -1

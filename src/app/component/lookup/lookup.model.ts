@@ -15,7 +15,7 @@ export interface LookupConfig<T> {
   displayFields: string[];
   postback: keyof T;
   fieldConfig: {
-    [key: string]: {
+    [key in keyof Partial<T>]: {
       controlname: string;
       type: string;
       label: string;
