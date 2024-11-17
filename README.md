@@ -4,7 +4,7 @@ Demonstrates the mechanism of creating a custom lookup component and registering
 # Updated to angular 12!!!  
 
 # Blog  
-https://theangularpath.anirbanblogs.com/2019/09/angular-custom-lookup-form-component.html   
+https://dev.to/anirbmuk/custom-angular-form-component-57mf  
 
 # Preview
 ![preview](img/preview.gif)   
